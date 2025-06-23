@@ -1,0 +1,7 @@
+apiVersion: v2
+name: makemkv
+description: "MakeMKV Docker container for Blu-ray/DVD ripping"Add commentMore actions
+type: application
+version: 1.0.0
+appVersion: "latest"
+icon: "https://user-images.githubusercontent.com/3883521/159073438-fab1ed5b-c1a0-488b-b9d8-5ec60e1270d6.png"
