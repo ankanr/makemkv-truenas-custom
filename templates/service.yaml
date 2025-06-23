@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: makemkv
+spec:
+  selector:
+    app: makemkv
+  ports:
+    - name: webui
+      port: 5800
+      targetPort: 5800

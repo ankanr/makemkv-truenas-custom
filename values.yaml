@@ -1,0 +1,20 @@
+image:
+  repository: jlesage/makemkv
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 5800
+
+persistence:
+  basePath: /mnt/storage_pool/makemkv
+  outputPath: /mnt/storage_pool/makemkv/output
+
+env:
+  MAKEMKV_KEY: BETA
+  DARK_MODE: "0"
+  USER_ID: "568"
+  GROUP_ID: "568"
+
+resources: {}

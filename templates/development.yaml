@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: makemkv
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: makemkv
+  template:
+    metadata:
+      labels:
+        app: makemkv
+    spec:
+      containers:
+        - name: makemkv
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: 5800
+              hostPort: 5800
+          env:
+            - name: MAKEMKV_KEY
+              value: "{{ .Values.env.MAKEMKV_KEY }}"
+            - name: DARK_MODE
+              value: "{{ .Values.env.DARK_MODE }}"
+            - name: USER_ID
+              value: "{{ .Values.env.USER_ID }}"
+            - name: GROUP_ID
+              value: "{{ .Values.env.GROUP_ID }}"
+          volumeMounts:
+            - mountPath: /config
+              name: shared
+              readOnly: false          # rw
+            - mountPath: /storage
+              name: shared
+              readOnly: true           # ro
+            - mountPath: /output
+              name: output
+              readOnly: false          # rw
+          securityContext:
+            privileged: true
+      volumes:
+        - name: shared
+          hostPath:
+            path: "{{ .Values.persistence.basePath }}"
+        - name: output
+          hostPath:
+            path: "{{ .Values.persistence.outputPath }}"
